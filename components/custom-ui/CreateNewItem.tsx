@@ -24,23 +24,39 @@ const CreateNewItem = ({ setOpen }: CreateNewItemProps) => {
         carbs: "",
         sugar: "",
       }}
-      onSubmit={(values, actions) => {
-        // Add your submission logic here, e.g. API call, state updates, etc.
-        console.log("New food item:", values);
-        actions.setSubmitting(false);
-        setOpen(false);
+      onSubmit={async (values, actions) => {
+        console.log("Submitting form with values:", values);
+        try {
+          // Send a POST request to add the new food item to the database
+          const res = await fetch("/api/foodItems", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              name: values.name,
+              kcal: values.kcal ? parseFloat(values.kcal) : 0,
+              fat: values.fat ? parseFloat(values.fat) : 0,
+              carbs: values.carbs ? parseFloat(values.carbs) : 0,
+              sugar: values.sugar ? parseFloat(values.sugar) : 0,
+            }),
+          });
+          if (!res.ok) {
+            throw new Error("Failed to create food item");
+          }
+          const data = await res.json();
+          console.log("New food item created:", data);
+          setOpen(false);
+        } catch (error) {
+          console.error("Error creating food item:", error);
+        } finally {
+          actions.setSubmitting(false);
+        }
       }}
     >
       {(props) => (
-        // Prevent clicks and pointer down events on the form from propagating to the dialog.
-        <Form
-          onClick={(e: React.MouseEvent<HTMLFormElement>) =>
-            e.stopPropagation()
-          }
-          onPointerDown={(e: React.PointerEvent<HTMLFormElement>) =>
-            e.stopPropagation()
-          }
-        >
+        // Removed stopPropagation from the form to ensure the submit event is triggered.
+        <Form>
           <Dialog.Content>
             <Dialog.Header>
               <Dialog.Title>Create Food Item</Dialog.Title>

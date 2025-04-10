@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   CloseButton,
@@ -14,7 +14,7 @@ import { LuCheck } from "react-icons/lu";
 /**
  * Interface for food item data.
  */
-interface FoodItem {
+export interface FoodItem {
   id: number;
   name: string;
   kcal: number;
@@ -23,15 +23,29 @@ interface FoodItem {
   sugar: number;
 }
 
-const sampleItems: FoodItem[] = [
-  { id: 1, name: "Apple", kcal: 52, fat: 0.2, carbs: 14, sugar: 10 },
-  { id: 2, name: "Banana", kcal: 96, fat: 0.3, carbs: 27, sugar: 14 },
-  { id: 3, name: "Carrot", kcal: 41, fat: 0.24, carbs: 10, sugar: 5 },
-];
-
 const AddExistingItem = () => {
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const [grams, setGrams] = useState<string>("");
+  const [fetchedItems, setFetchedItems] = useState<FoodItem[]>([]);
+
+  useEffect(() => {
+    // Fetch food items from the API on component mount
+    const fetchFoodItems = async () => {
+      try {
+        const res = await fetch("/api/foodItems");
+        if (!res.ok) {
+          throw new Error("Failed to fetch food items");
+        }
+        const data = await res.json();
+        setFetchedItems(data);
+      } catch (error) {
+        console.error("Error fetching food items:", error);
+        // Fallback to empty array if fetch fails
+        setFetchedItems([]);
+      }
+    };
+    fetchFoodItems();
+  }, []);
 
   const handleRowClick = (id: number) => {
     // Toggle selection: if the clicked row is already selected, deselect it.
@@ -44,13 +58,13 @@ const AddExistingItem = () => {
   };
 
   const handleConfirm = () => {
-    const selectedItem = sampleItems.find((item) => item.id === selectedId);
+    const selectedItem = fetchedItems.find((item) => item.id === selectedId);
     console.log("Selected food item:", selectedItem);
     // Future integration: Use this information to prefill or update logic matching CreateNewItem.tsx fields.
   };
 
   // Get the currently selected item
-  const selectedItem = sampleItems.find((item) => item.id === selectedId);
+  const selectedItem = fetchedItems.find((item) => item.id === selectedId);
 
   // Calculate scaled nutrients if grams is entered
   const quantity = parseFloat(grams);
@@ -83,7 +97,7 @@ const AddExistingItem = () => {
               </Table.Row>
             </Table.Header>
             <Table.Body>
-              {sampleItems.map((item, index) => {
+              {fetchedItems.map((item, index) => {
                 const isSelected = selectedId === item.id;
                 const backgroundColor = isSelected
                   ? "#c6f6d5" // light green for selected row
