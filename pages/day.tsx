@@ -1,5 +1,7 @@
+import DayView from "@/components/DayView";
+
 const Day = () => {
-  return <></>;
+  return <DayView />;
 };
 
 export default Day;
