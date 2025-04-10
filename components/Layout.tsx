@@ -1,6 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
-import MainBar from "./MainBar";
+import MainBar from "./custom-ui/MainBar";
 
 interface LayoutProps {
   children: React.ReactNode;
