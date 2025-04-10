@@ -6,7 +6,8 @@ import { signIn } from "next-auth/react";
 const MainLogin = () => {
   // Google login handler function using NextAuth
   const handleGoogleLogin = () => {
-    signIn("google");
+    // Pass callbackUrl option to redirect after successful login
+    signIn("google", { callbackUrl: "/day" });
   };
   return (
     <Box
