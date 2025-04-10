@@ -45,7 +45,7 @@ const MenuWithExtraButton: React.FC = () => {
         onClick={() => console.log("Regular button clicked")}
       >
         <FaRegPlusSquare />
-        Add new item
+        Create a new item
       </Button>
       <Button
         bg="transparent"

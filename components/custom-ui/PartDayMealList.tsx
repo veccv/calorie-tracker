@@ -1,5 +1,5 @@
 import { Stack, Text } from "@chakra-ui/react";
-import AddNewItem from "@/components/custom-ui/AddNewItem";
+import AddItemDialog from "@/components/custom-ui/AddItemDialog";
 
 interface PartDayMealListProps {
   title: string;
@@ -19,7 +19,7 @@ const PartDayMealList = ({ title }: PartDayMealListProps) => {
         </Stack>
       </Stack>
       <Stack h="full" w="full" justify="center" align="center">
-        <AddNewItem w="80%" h="30%" />
+        <AddItemDialog />
       </Stack>
     </Stack>
   );
