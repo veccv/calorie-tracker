@@ -22,7 +22,7 @@ const AddNewItem: React.FC<AddNewItemProps> = ({ w = "full", h = "full" }) => {
       _hover={{ bg: "gray.200" }}
     >
       <FaRegPlusSquare />
-      <Text pl="1em">Add new item</Text>
+      <Text pl="1em">Add item</Text>
     </Flex>
   );
 };

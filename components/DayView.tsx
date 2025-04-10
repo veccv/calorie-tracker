@@ -10,9 +10,16 @@ const DayView = () => {
       <Box w="30%" h="70%" bg="gray.100" rounded="lg" p="1em" boxShadow="lg">
         <Stack h="full" w="full" divideY="1px">
           <Stack h="full" w="full">
-            <Text fontSize="xl" fontWeight="bold" mb="2">
-              Breakfast
-            </Text>
+            <Stack w="full">
+              <Text fontSize="xl" fontWeight="bold">
+                Breakfast
+              </Text>
+              <Stack direction="row">
+                <Text fontSize="sm">Calories: 0 kcal | </Text>
+                <Text fontSize="sm">Carbs: 0g | </Text>
+                <Text fontSize="sm">Fat: 0g | </Text>
+              </Stack>
+            </Stack>
             <Stack h="full" w="full" justify="center" align="center">
               <AddNewItem w="80%" h="30%" />
             </Stack>
