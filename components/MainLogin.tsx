@@ -1,7 +1,13 @@
+import React from "react";
 import { Box, Button, Center, Stack, Text } from "@chakra-ui/react";
 import { FaGoogle } from "react-icons/fa";
+import { signIn } from "next-auth/react";
 
 const MainLogin = () => {
+  // Google login handler function using NextAuth
+  const handleGoogleLogin = () => {
+    signIn("google");
+  };
   return (
     <Box
       w="full"
@@ -20,7 +26,7 @@ const MainLogin = () => {
             </Text>
           </Stack>
           <Stack w="full" h="100%" justify="center" align="center">
-            <Button>
+            <Button onClick={handleGoogleLogin}>
               <FaGoogle />
               Login with Google
             </Button>
