@@ -1,6 +1,6 @@
-import { Button, Flex, Text } from "@chakra-ui/react";
+import { Button, Flex, Menu, Portal, Text } from "@chakra-ui/react";
 import { FaRegUser } from "react-icons/fa";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 const MainBar = () => {
   const { data: session } = useSession();
@@ -23,17 +23,33 @@ const MainBar = () => {
       >
         Options buttons
       </Text>
-      <Button
-        position="absolute"
-        right="1em"
-        bg="transparent"
-        color="white"
-        variant="ghost"
-        aria-label="User control"
-      >
-        <FaRegUser />
-        {username}
-      </Button>
+      <Menu.Root>
+        <Menu.Trigger asChild>
+          <Button
+            position="absolute"
+            right="1em"
+            bg="transparent"
+            color="white"
+            variant="ghost"
+            aria-label="User control"
+          >
+            <FaRegUser />
+            {username}
+          </Button>
+        </Menu.Trigger>
+        <Portal>
+          <Menu.Positioner>
+            <Menu.Content>
+              <Menu.Item
+                value="logout"
+                onClick={() => signOut({ callbackUrl: "/" })}
+              >
+                Log out
+              </Menu.Item>
+            </Menu.Content>
+          </Menu.Positioner>
+        </Portal>
+      </Menu.Root>
     </Flex>
   );
 };

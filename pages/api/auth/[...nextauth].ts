@@ -8,6 +8,7 @@ export default NextAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || ""
     })
   ],
+  secret: process.env.NEXTAUTH_SECRET || "default-secret",
   // Opcjonalnie: dalsze konfiguracje np. callbacks, session, pages itp.
   callbacks: {
     // Przykładowy callback umożliwiający dodanie nazwy użytkownika do tokena sesji
