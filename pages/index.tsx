@@ -1,11 +1,7 @@
-
+import MainLogin from "@/components/MainLogin";
 
 const HomePage = () => {
-  return (
-    <div>
-      <h1>Hello World</h1>
-    </div>
-  )
-}
+  return <MainLogin />;
+};
 
 export default HomePage;
